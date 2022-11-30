@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Movie;
+use App\Entity\Status;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,11 +14,15 @@ class MovieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', null, array("attr"=> array("class"=> "form-control")))
             ->add('genre')
             ->add('description')
             ->add('picture')
-            ->add('fk_status')
+            ->add('fk_status', EntityType::class, array(
+                "class" => Status::class,
+
+                "choice_label" => "availability"
+            ))
         ;
     }
 
